@@ -21,12 +21,15 @@ public class Client {
 
     private int age;
 
-    public Client(UUID id, String firstName, String lastName, String personalId, float debt, int age) {
+    private ClientType clientType;
+
+    public Client(UUID id, String firstName, String lastName, String personalId, float debt, int age, ClientType clientType) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalId = personalId;
         this.debt = debt;
         this.age = age;
+        this.clientType = clientType;
     }
 }

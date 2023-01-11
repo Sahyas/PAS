@@ -1,0 +1,47 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# IDEA
+# ----
+.idea
+.idea/
+.shelf
+/*.iml
+/*.ipr
+/*.iws
+/out
+
+/out/*.*
+
+# Logs
+# ----
+/*.log
+
+# Others
+# ----
+**/*.class
+**/*.bin
+**/*.build
+**/*.out
+build
+build/
+**/*.jar
+
+#Skip all SVN related
+.svn/
+.svn/entries
+.svn*
+*/.svn/*
+
+#Skip all CVS related
+CVS/
+/CVS/*
+**/CVS/*
+.cvsignore
+*/.cvsignore

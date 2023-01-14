@@ -3,16 +3,18 @@ package com.pas.repository;
 import com.pas.model.Rent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@ApplicationScoped
 public class RentRepository implements RepositoryInterface<Rent> {
 
-    List<Rent> rents;
-
-    public RentRepository() {
-        this.rents = new ArrayList<>();
-    }
+    List<Rent> rents = Collections.synchronizedList(new ArrayList<>());
 
     @Override
     public void add(Rent entity) {
@@ -33,8 +35,19 @@ public class RentRepository implements RepositoryInterface<Rent> {
     }
 
     @Override
-    public void update(Rent entity) {
-        rents.add(entity);
+    public Rent update(Rent entity) {
+        Rent foundRent = rents.stream()
+                .filter(rent -> rent.getId().equals(entity.getId()))
+                .findFirst()
+                .orElse(null);
+        if (foundRent != null) {
+            int index = rents.indexOf(foundRent);
+            rents.set(index, entity);
+            return entity;
+        } else {
+            log.warn("object " + entity + " do not exist");
+            return null;
+        }
     }
 
     @Override

@@ -2,11 +2,17 @@ package com.pas.model;
 
 import java.util.UUID;
 
+import jakarta.enterprise.inject.Model;
+import jakarta.inject.Inject;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class Book {
 
     private UUID id;
@@ -21,12 +27,12 @@ public class Book {
 
     private boolean isRented;
 
-    public Book(UUID id, String title, String author, String serialNumber, String genre, boolean isRented) {
-        this.id = id;
+    public Book(String title, String author, String serialNumber, String genre) {
+        this.id = UUID.randomUUID();
         this.title = title;
         this.author = author;
         this.serialNumber = serialNumber;
         this.genre = genre;
-        this.isRented = isRented;
+        this.isRented = false;
     }
 }

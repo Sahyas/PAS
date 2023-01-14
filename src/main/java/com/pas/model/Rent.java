@@ -4,10 +4,14 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class Rent {
 
     private UUID id;
@@ -18,13 +22,13 @@ public class Rent {
 
     private Book book;
 
-    private Client client;
+    private User user;
 
-    public Rent(UUID id, LocalDateTime beginTime, LocalDateTime endTime, Book book, Client client) {
+    public Rent(UUID id, LocalDateTime beginTime, LocalDateTime endTime, Book book, User user) {
         this.id = id;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.book = book;
-        this.client = client;
+        this.user = user;
     }
 }

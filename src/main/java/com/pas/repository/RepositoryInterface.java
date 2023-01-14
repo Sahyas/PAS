@@ -7,7 +7,7 @@ public interface RepositoryInterface<T> {
     void add(T entity);
     T getById(UUID id);
     void delete(T entity);
-    void update(T entity);
+    T update(T entity);
     long size();
     List<T> findAll();
 }

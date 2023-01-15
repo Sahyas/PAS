@@ -2,13 +2,14 @@ package com.pas.model;
 
 import java.util.UUID;
 
-import jakarta.enterprise.inject.Model;
-import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Valid
 @Getter
 @Setter
 @ToString
@@ -16,13 +17,13 @@ import lombok.ToString;
 public class Book {
 
     private UUID id;
-
+    @NotEmpty
     private String title;
-
+    @NotEmpty
     private String author;
-
+    @NotEmpty
     private String serialNumber;
-
+    @NotEmpty
     private String genre;
 
     private boolean isRented;

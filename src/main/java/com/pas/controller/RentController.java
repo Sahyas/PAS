@@ -19,6 +19,7 @@ public class RentController {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
     public Rent createRent(@QueryParam("clientId") UUID clientId, @QueryParam("bookId") UUID bookId) {
         return rentService.rentBook(clientId, bookId);
     }
@@ -42,6 +43,13 @@ public class RentController {
     @Path("/current")
     public List<Rent> getCurrentRents() {
         return rentService.findAllCurrentRents();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/ended")
+    public List<Rent> getEndedRents() {
+        return rentService.findAllEndedRents();
     }
 
     @GET

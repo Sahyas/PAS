@@ -3,6 +3,8 @@ package com.pas.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@Valid
 public class Rent {
 
     private UUID id;
@@ -19,9 +22,9 @@ public class Rent {
     private LocalDateTime beginTime;
 
     private LocalDateTime endTime;
-
+    @NotEmpty
     private Book book;
-
+    @NotEmpty
     private User user;
 
     public Rent(UUID id, LocalDateTime beginTime, LocalDateTime endTime, Book book, User user) {

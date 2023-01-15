@@ -4,26 +4,55 @@ import com.pas.model.User;
 import com.pas.service.impl.UserService;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.validation.*;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/users")
 @ApplicationScoped
 public class UserController {
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
     @Inject
     private UserService userService;
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public User saveClient(User user) {
+    @Path("/client")
+    public Response saveClient(User user) {
+        Set<ConstraintViolation<User>> violation = validator.validate(user);
+        List<String> errors = violation.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
+        if (!violation.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(errors).build();
+        }
         user.setId(UUID.randomUUID());
         userService.addClient(user);
-        return user;
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/match")
+    public User getUserByLogin(@QueryParam("login") String login) {
+        return userService.getUserByLogin(login);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/matchAll")
+    public List<User> getUsersMatchingLogin(@QueryParam("login") String login) {
+        return userService.getUsersMatchingLogin(login);
     }
 
     @GET
@@ -62,5 +91,25 @@ public class UserController {
         User user = userService.getClientById(userId);
         user.setActive(!user.isActive());
         return userService.updateClient(user);
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/moderator")
+    public User saveModerator(User user) {
+        user.setId(UUID.randomUUID());
+        userService.addModerator(user);
+        return user;
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/admin")
+    public User saveAdmin(User user) {
+        user.setId(UUID.randomUUID());
+        userService.addAdmin(user);
+        return user;
     }
 }

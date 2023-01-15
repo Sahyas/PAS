@@ -62,6 +62,13 @@ public class RentService {
                 .collect(Collectors.toList());
     }
 
+    public List<Rent> findAllEndedRents() {
+        List<Rent> rents = rentRepository.findAll();
+        return rents.stream()
+                .filter(rent -> rent.getEndTime() != null)
+                .collect(Collectors.toList());
+    }
+
     public List<Rent> findAllRents() {
         return rentRepository.findAll();
     }

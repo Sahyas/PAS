@@ -4,27 +4,40 @@ import com.pas.model.Book;
 import com.pas.service.impl.BookService;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/books")
 @ApplicationScoped
 public class BookController {
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
     @Inject
     private BookService bookService;
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String saveBook(Book book) {
+    public Response saveBook(Book book) {
+        Set<ConstraintViolation<Book>> violation = validator.validate(book);
+        List<String> errors = violation.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
+        if (!violation.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(errors).build();
+        }
         book.setId(UUID.randomUUID());
         book.setRented(false);
         bookService.registerBook(book);
-        return book.toString();
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @GET

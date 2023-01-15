@@ -6,12 +6,16 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.UUID;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+@Valid
 @Getter
 @Setter
 @ToString
@@ -25,21 +29,20 @@ import lombok.experimental.SuperBuilder;
         @JsonSubTypes.Type(Client.class)}
 )
 public class User {
-
     private UUID id;
-
+    @NotEmpty
     private String login;
-
+    @NotEmpty
     private String password;
-
+    @NotEmpty
     private String firstName;
-
+    @NotEmpty
     private String lastName;
-
+    @NotEmpty
     private String personalId;
 
     private float debt;
-
+    @NotNull
     private int age;
 
     private boolean isActive;

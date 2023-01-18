@@ -18,7 +18,7 @@ public class BookRepository implements RepositoryInterface<Book> {
     private List<Book> books = Collections.synchronizedList(new ArrayList<>());
 
     @Override
-    public void add(Book entity) {
+    public synchronized void add(Book entity) {
         books.add(entity);
     }
 
@@ -31,12 +31,12 @@ public class BookRepository implements RepositoryInterface<Book> {
     }
 
     @Override
-    public void delete(Book book) {
+    public synchronized void delete(Book book) {
         books.remove(book);
     }
 
     @Override
-    public Book update(Book entity) {
+    public synchronized Book update(Book entity) {
         Book foundBook = books.stream()
                 .filter(book -> book.getId().equals(entity.getId()))
                 .findFirst()

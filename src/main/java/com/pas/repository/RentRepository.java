@@ -17,7 +17,7 @@ public class RentRepository implements RepositoryInterface<Rent> {
     List<Rent> rents = Collections.synchronizedList(new ArrayList<>());
 
     @Override
-    public void add(Rent entity) {
+    public synchronized void add(Rent entity) {
         rents.add(entity);
     }
 
@@ -30,12 +30,12 @@ public class RentRepository implements RepositoryInterface<Rent> {
     }
 
     @Override
-    public void delete(Rent entity) {
+    public synchronized void delete(Rent entity) {
         rents.remove(entity);
     }
 
     @Override
-    public Rent update(Rent entity) {
+    public synchronized Rent update(Rent entity) {
         Rent foundRent = rents.stream()
                 .filter(rent -> rent.getId().equals(entity.getId()))
                 .findFirst()

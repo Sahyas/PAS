@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "6a77797b-1b20-43ce-a299-a50d845c2f39",
+		"name": "Library",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "books",
+			"item": [
+				{
+					"name": "add book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"author\": \"someAuthor\",\r\n        \"genre\": \"someGenre\",\r\n        \"serialNumber\": \"123\",\r\n        \"title\": \"someTitle\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get books",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single book",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/books/d223fced-2474-40ba-940e-9fc9a7e44c9d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"books",
+								"d223fced-2474-40ba-940e-9fc9a7e44c9d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update book",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\" : \"d223fced-2474-40ba-940e-9fc9a7e44c9d\",\r\n        \"author\": \"someAuthor3765476\",\r\n        \"genre\": \"someGenre3\",\r\n        \"serialNumber\": \"123\",\r\n        \"title\": \"someTitle\",\r\n        \"rented\" : true\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/books/a3c68196-f760-4853-93b8-ad724f50cbed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"books",
+								"a3c68196-f760-4853-93b8-ad724f50cbed"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rents",
+			"item": [
+				{
+					"name": "get rents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/rents",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add rent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/rents?clientId=978b60c8-6fd0-4ebe-b764-7f60681f28a9&bookId=3cb5ed1d-9481-42c6-a68b-106897a80808",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rents"
+							],
+							"query": [
+								{
+									"key": "clientId",
+									"value": "978b60c8-6fd0-4ebe-b764-7f60681f28a9"
+								},
+								{
+									"key": "bookId",
+									"value": "3cb5ed1d-9481-42c6-a68b-106897a80808"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get rent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/rents/1e22a8c6-c096-4ec1-a5be-c5f353033cd6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rents",
+								"1e22a8c6-c096-4ec1-a5be-c5f353033cd6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete rent",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/rents/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rents",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update rent",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get current rents",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "end rent",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get ended rents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/rents/ended",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rents",
+								"ended"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"active\": true,\r\n        \"age\": 18,\r\n        \"debt\": 5.0,\r\n        \"firstName\": \"name\",\r\n        \"lastName\": \"secondName\",\r\n        \"login\": \"login\",\r\n        \"password\": \"password\",\r\n        \"personalId\": \"1234\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/client",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/b9cf52cb-27dc-4dfe-ae46-47b42fe437d6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"b9cf52cb-27dc-4dfe-ae46-47b42fe437d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/c0a52e0e-8740-4226-95dd-b036149a0308",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"c0a52e0e-8740-4226-95dd-b036149a0308"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"active\": true,\r\n        \"age\": 188,\r\n        \"debt\": 5.0,\r\n        \"firstName\": \"name7657546345\",\r\n        \"id\": \"c0a52e0e-8740-4226-95dd-b036149a0308\",\r\n        \"lastName\": \"secondNam6654654e\",\r\n        \"login\": \"login\",\r\n        \"password\": \"password\",\r\n        \"personalId\": \"1234\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change activity",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "match one login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/match?login=login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"match"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "login"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "match all logins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/matchAll?login=login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"matchAll"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "login"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -33,7 +33,7 @@ public class BookService {
     }
 
     public void unregisterBook(Book book) {
-        if (book.isRented()) {
+        if (!book.isRented()) {
             log.info("unregistering book" + book);
             bookRepository.delete(book);
         } else {

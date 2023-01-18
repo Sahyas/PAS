@@ -4,6 +4,7 @@ import com.pas.model.Admin;
 import com.pas.model.Client;
 import com.pas.model.Moderator;
 import com.pas.model.User;
+import com.pas.repository.RentRepository;
 import com.pas.repository.UserRepository;
 
 import java.util.List;
@@ -17,27 +18,38 @@ import jakarta.inject.Inject;
 public class UserService {
     @Inject
     private UserRepository userRepository;
+    @Inject
+    private RentRepository rentRepository;
 
     public User getClientById(UUID id) {
         return userRepository.getById(id);
     }
 
     public User addClient(User user) {
-        userRepository.add(new Client(UUID.randomUUID(), user.getLogin(), user.getPassword(), user.getFirstName(),
-                user.getLastName(), user.getPersonalId(), user.getDebt(), user.getAge(), user.isActive()));
-        return user;
+        if (getUserByLogin(user.getLogin()) == null) {
+            userRepository.add(new Client(UUID.randomUUID(), user.getLogin(), user.getPassword(), user.getFirstName(),
+                    user.getLastName(), user.getPersonalId(), user.getDebt(), user.getAge(), user.isActive()));
+            return user;
+        }
+        return null;
     }
 
     public User addModerator(User user) {
-        userRepository.add(new Moderator(UUID.randomUUID(), user.getLogin(), user.getPassword(), user.getFirstName(),
-                user.getLastName(), user.getPersonalId(), user.getDebt(), user.getAge(), user.isActive()));
-        return user;
+        if (getUserByLogin(user.getLogin()) == null) {
+            userRepository.add(new Moderator(UUID.randomUUID(), user.getLogin(), user.getPassword(), user.getFirstName(),
+                    user.getLastName(), user.getPersonalId(), user.getDebt(), user.getAge(), user.isActive()));
+            return user;
+        }
+        return null;
     }
 
     public User addAdmin(User user) {
-        userRepository.add(new Admin(UUID.randomUUID(), user.getLogin(), user.getPassword(), user.getFirstName(),
-                user.getLastName(), user.getPersonalId(), user.getDebt(), user.getAge(), user.isActive()));
-        return user;
+        if (getUserByLogin(user.getLogin()) == null) {
+            userRepository.add(new Admin(UUID.randomUUID(), user.getLogin(), user.getPassword(), user.getFirstName(),
+                    user.getLastName(), user.getPersonalId(), user.getDebt(), user.getAge(), user.isActive()));
+            return user;
+        }
+        return null;
     }
 
     public void deleteClient(User user) {

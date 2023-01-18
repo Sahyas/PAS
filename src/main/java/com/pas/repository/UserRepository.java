@@ -9,10 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,7 +19,7 @@ public class UserRepository implements RepositoryInterface<User> {
     private List<User> users = Collections.synchronizedList(new ArrayList<>());
 
     @Override
-    public void add(User entity) {
+    public synchronized void add(User entity) {
         users.add(entity);
     }
 
@@ -35,12 +32,12 @@ public class UserRepository implements RepositoryInterface<User> {
     }
 
     @Override
-    public void delete(User entity) {
+    public synchronized void delete(User entity) {
         users.remove(entity);
     }
 
     @Override
-    public User update(User entity) {
+    public synchronized User update(User entity) {
         User foundUser = users.stream()
                 .filter(client -> client.getId().equals(entity.getId()))
                 .findFirst()

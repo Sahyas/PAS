@@ -95,9 +95,12 @@ public class RentService {
         return rentRepository.getById(rentId);
     }
 
-    public void deleteRent(Rent rent) {
+    public boolean deleteRent(Rent rent) {
         if (rent.getEndTime() != null) {
             rentRepository.delete(rent);
+            return true;
+        } else {
+            return false;
         }
     }
 

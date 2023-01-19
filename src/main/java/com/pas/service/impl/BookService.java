@@ -32,12 +32,14 @@ public class BookService {
         return book;
     }
 
-    public void unregisterBook(Book book) {
+    public boolean unregisterBook(Book book) {
         if (!book.isRented()) {
             log.info("unregistering book" + book);
             bookRepository.delete(book);
+            return true;
         } else {
             log.warn("cannot unregister rented book");
+            return false;
         }
     }
 

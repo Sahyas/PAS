@@ -57,8 +57,12 @@ public class BookController {
     @DELETE
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{bookId}")
-    public void deleteBook(@PathParam("bookId") UUID bookId) {
-        bookService.unregisterBook(bookService.getBookById(bookId));
+    public Response deleteBook(@PathParam("bookId") UUID bookId) {
+        if (bookService.unregisterBook(bookService.getBookById(bookId))) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.CONFLICT).entity("Book with id " + bookId + " is currently rented").build();
+        }
     }
 
     @PUT

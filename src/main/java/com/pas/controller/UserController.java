@@ -44,7 +44,7 @@ public class UserController {
         if (createdUser != null) {
             return Response.status(Response.Status.CREATED).build();
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.CONFLICT).entity("This login is taken").build();
         }
     }
 
@@ -81,9 +81,12 @@ public class UserController {
     @DELETE
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{userId}")
-    public void deleteClient(@PathParam("userId") UUID userId) {
+    public Response deleteClient(@PathParam("userId") UUID userId) {
         if (rentService.getRentByClient(getClient(userId)) == null) {
             userService.deleteClient(userService.getClientById(userId));
+            return Response.ok().entity("User with id: " + userId + "successfully deleted").build();
+        } else {
+            return Response.status(Response.Status.CONFLICT).entity("This user have active rents").build();
         }
     }
 
@@ -120,7 +123,7 @@ public class UserController {
         if (createdUser != null) {
             return Response.status(Response.Status.CREATED).build();
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.CONFLICT).entity("This login is taken").build();
         }
     }
 
@@ -140,7 +143,7 @@ public class UserController {
         if (createdUser != null) {
             return Response.status(Response.Status.CREATED).build();
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.CONFLICT).entity("This login is taken").build();
         }
     }
 }

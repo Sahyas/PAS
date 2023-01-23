@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Product Management</title>
+</h:head>
+<h:body>
+    <ui:include src="navigation.xhtml"></ui:include>
+    <h:form>
+        <h:dataTable value="#{bookBean.books}" var="books">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{books.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">title</f:facet>
+                <h:outputText value="#{books.title}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">author</f:facet>
+                <h:outputText value="#{books.author}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">serialNumber</f:facet>
+                <h:outputText value="#{books.serialNumber}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">genre</f:facet>
+                <h:outputText value="#{books.genre}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">isRented</f:facet>
+                <h:outputText value="#{books.rented}"/>
+            </h:column>
+            <h:column>
+                <h:commandButton value="Delete" action="#{bookBean.deleteBook(books.id)}">
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Product Management</title>
+</h:head>
+<h:body>
+    <ui:include src="navigation.xhtml"></ui:include>
+    <h:form>
+        <h:outputLabel for="firstName">FirstName:</h:outputLabel>
+        <h:inputText id="firstName" value="#{userBean.user.firstName}"></h:inputText>
+        <br>
+            <h:outputLabel for="lastName">LastName:</h:outputLabel>
+            <h:inputText id="lastName" value="#{userBean.user.lastName}"></h:inputText>
+            <h:outputLabel for="login">Login:</h:outputLabel>
+            <h:inputText id="login" value="#{userBean.user.login}"></h:inputText>
+            <h:outputLabel for="password">Password:</h:outputLabel>
+            <h:inputText id="password" value="#{userBean.user.password}"></h:inputText>
+            <h:outputLabel for="personalId">PersonalId:</h:outputLabel>
+            <h:inputText id="personalId" value="#{userBean.user.personalId}"></h:inputText>
+            <h:outputLabel for="age">Age:</h:outputLabel>
+            <h:inputText id="age" value="#{userBean.user.age}"></h:inputText>
+        </br>
+        <h:commandButton value="Submit"
+                         action="#{userBean.addUser(userBean.user)}"></h:commandButton>
+        <h:panelGroup rendered="#{userBean.statusCode eq 201}">
+            <h:outputText value="User successfully added"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{userBean.statusCode eq 409}">
+            <h:outputText value="This login is taken"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{userBean.statusCode eq 400}">
+            <h:outputText value="wrong format"></h:outputText>
+        </h:panelGroup>
+    </h:form>
+</h:body>
+</html>

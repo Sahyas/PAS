@@ -7,12 +7,20 @@ import java.util.List;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Named
 @RequestScoped
+@Getter
+@Setter
+@Slf4j
 public class UserBean {
     private final RestClient restClient = new RestClient();
     private List<User> users;
+    private User user = new User();
+    private int statusCode;
 
     public UserBean() {
     }
@@ -24,5 +32,13 @@ public class UserBean {
 
     public void deleteUser(String id) {
         restClient.delete("/users/" + id);
+    }
+
+    public void addUser(User user) {
+        statusCode = restClient.post("/users/client", user).getStatus();
+    }
+
+    public int getStatusCode() {
+        return this.statusCode;
     }
 }

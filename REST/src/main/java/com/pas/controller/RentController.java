@@ -1,7 +1,7 @@
-package src.main.java.com.pas.controller;
+package com.pas.controller;
 
-import src.main.java.com.pas.model.Rent;
-import src.main.java.com.pas.service.impl.RentService;
+import com.pas.model.Rent;
+import com.pas.service.impl.RentService;
 
 import java.util.List;
 import java.util.UUID;

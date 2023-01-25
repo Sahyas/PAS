@@ -1,12 +1,12 @@
-package src.main.java.com.pas.service.impl;
+package com.pas.service.impl;
 
 
-import src.main.java.com.pas.model.Book;
-import src.main.java.com.pas.model.Rent;
-import src.main.java.com.pas.model.User;
-import src.main.java.com.pas.repository.BookRepository;
-import src.main.java.com.pas.repository.RentRepository;
-import src.main.java.com.pas.repository.UserRepository;
+import com.pas.model.Book;
+import com.pas.model.Rent;
+import com.pas.model.User;
+import com.pas.repository.BookRepository;
+import com.pas.repository.RentRepository;
+import com.pas.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;

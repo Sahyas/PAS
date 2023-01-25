@@ -1,4 +1,4 @@
-package src.main.java.com.pas.model;
+package com.pas.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

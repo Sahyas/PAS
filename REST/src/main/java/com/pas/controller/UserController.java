@@ -1,8 +1,8 @@
-package src.main.java.com.pas.controller;
+package com.pas.controller;
 
-import src.main.java.com.pas.model.User;
-import src.main.java.com.pas.service.impl.RentService;
-import src.main.java.com.pas.service.impl.UserService;
+import com.pas.model.User;
+import com.pas.service.impl.RentService;
+import com.pas.service.impl.UserService;
 
 import java.util.List;
 import java.util.Set;

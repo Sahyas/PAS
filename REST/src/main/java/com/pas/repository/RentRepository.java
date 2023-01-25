@@ -1,7 +1,7 @@
-package src.main.java.com.pas.repository;
+package com.pas.repository;
 
 
-import src.main.java.com.pas.model.Rent;
+import com.pas.model.Rent;
 
 import java.util.ArrayList;
 import java.util.Collections;

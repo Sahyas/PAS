@@ -1,4 +1,4 @@
-package src.main.java.com.pas.main;
+package com.pas.main;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

@@ -1,4 +1,4 @@
-package src.main.java.com.pas.model;
+package com.pas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

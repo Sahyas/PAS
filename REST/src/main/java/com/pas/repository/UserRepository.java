@@ -1,7 +1,7 @@
-package src.main.java.com.pas.repository;
+package com.pas.repository;
 
-import src.main.java.com.pas.model.Client;
-import src.main.java.com.pas.model.User;
+import com.pas.model.Client;
+import com.pas.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

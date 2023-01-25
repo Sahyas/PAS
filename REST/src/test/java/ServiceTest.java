@@ -1,4 +1,3 @@
-package src.test.java;//import com.pas.model.Book;
 //import com.pas.model.Client;
 //import com.pas.model.ClientType;
 //import com.pas.model.Rent;

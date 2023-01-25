@@ -1,7 +1,7 @@
-package src.main.java.com.pas.controller;
+package com.pas.controller;
 
-import src.main.java.com.pas.model.Book;
-import src.main.java.com.pas.service.impl.BookService;
+import com.pas.model.Book;
+import com.pas.service.impl.BookService;
 
 import java.util.List;
 import java.util.Set;

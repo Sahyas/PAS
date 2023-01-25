@@ -1,11 +1,11 @@
-package src.main.java.com.pas.service.impl;
+package com.pas.service.impl;
 
-import src.main.java.com.pas.model.Admin;
-import src.main.java.com.pas.model.Client;
-import src.main.java.com.pas.model.Moderator;
-import src.main.java.com.pas.model.User;
-import src.main.java.com.pas.repository.RentRepository;
-import src.main.java.com.pas.repository.UserRepository;
+import com.pas.model.Admin;
+import com.pas.model.Client;
+import com.pas.model.Moderator;
+import com.pas.model.User;
+import com.pas.repository.RentRepository;
+import com.pas.repository.UserRepository;
 
 import java.util.List;
 import java.util.UUID;

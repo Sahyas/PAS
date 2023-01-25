@@ -1,8 +1,8 @@
-package src.main.java.com.pas.service.impl;
+package com.pas.service.impl;
 
 
-import src.main.java.com.pas.model.Book;
-import src.main.java.com.pas.repository.BookRepository;
+import com.pas.model.Book;
+import com.pas.repository.BookRepository;
 
 import java.util.List;
 import java.util.UUID;

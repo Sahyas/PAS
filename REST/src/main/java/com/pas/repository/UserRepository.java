@@ -31,6 +31,13 @@ public class UserRepository implements RepositoryInterface<User> {
                 .orElse(null);
     }
 
+
+    public User getByLogin(String login) {
+        return users.stream()
+                .filter(client -> client.getLogin().equals(login))
+                .findFirst()
+                .orElse(null);
+    }
     @Override
     public synchronized void delete(User entity) {
         users.remove(entity);

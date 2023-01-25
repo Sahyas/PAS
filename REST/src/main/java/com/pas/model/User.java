@@ -29,6 +29,8 @@ import lombok.experimental.SuperBuilder;
         @JsonSubTypes.Type(Client.class)}
 )
 public class User {
+    @NotEmpty
+    private String userType;
     private UUID id;
     @NotEmpty
     private String login;

@@ -4,13 +4,16 @@ import com.pas.model.User;
 import com.pas.service.impl.RentService;
 import com.pas.service.impl.UserService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -146,4 +149,17 @@ public class UserController {
             return Response.status(Response.Status.CONFLICT).entity("This login is taken").build();
         }
     }
+    @PATCH
+    @RolesAllowed({"ADMIN", "MODERATOR", "KLIENT"})
+    @Path("/changePassword")
+    public Response changePassword(Principal principal, String newPassword, HttpServletResponse response) {
+    try {
+//        update cookie?
+        userService.changePassword(principal.getName(), newPassword);
+        return Response.ok("Password changed").build();
+    } catch (IllegalStateException ex) {
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+    }
+
 }

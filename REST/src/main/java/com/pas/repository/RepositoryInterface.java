@@ -7,7 +7,6 @@ public interface RepositoryInterface<T> {
     void add(T entity);
 
     T getById(UUID id);
-
     void delete(T entity);
 
     T update(T entity);

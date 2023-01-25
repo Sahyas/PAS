@@ -78,4 +78,9 @@ public class UserService {
                 .filter(user -> user.getLogin().contains(login))
                 .collect(Collectors.toList());
     }
+
+    public void changePassword(String login, String newPassword){
+        User user = userRepository.getByLogin(login);
+        userRepository.update(user).setPassword(newPassword);
+    }
 }

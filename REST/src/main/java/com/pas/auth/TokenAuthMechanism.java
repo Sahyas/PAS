@@ -32,6 +32,7 @@ public class TokenAuthMechanism implements HttpAuthenticationMechanism {
 
             } catch (Exception e) {
                 // Invalid JWS, return 401 Unauthorized
+                return context.responseUnauthorized();
             }
         }
         // No or invalid Authorization header, return 401 Unauthorized

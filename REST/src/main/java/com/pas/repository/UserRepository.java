@@ -83,21 +83,5 @@ public class UserRepository implements RepositoryInterface<User> {
         this.add(client3);
     }
 
-    public User getByUsernameAndPasswd(String username, String password, List<User> users) {
-        for (User user : users) {
-            if (username.equals(user.getLogin()) && password.equals(user.getPassword())) {
-                return user;
-            }
-        }
-        return null;
-    }
 
-    public User getByUsernameAndPasswd(String username, String passwordAsString) {
-        for (User user : users) {
-            if (username.equals(user.getLogin()) && passwordAsString.equals(user.getPassword())) {
-                return user;
-            }
-        }
-        return null;
-    }
 }

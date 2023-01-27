@@ -13,10 +13,12 @@ import java.util.stream.Collectors;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -26,6 +28,8 @@ import jakarta.ws.rs.core.Response;
 public class UserController {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
+    @Inject
+    private SecurityContext securityContext;
     @Inject
     private UserService userService;
     @Inject
@@ -150,9 +154,11 @@ public class UserController {
         }
     }
     @PATCH
-    @RolesAllowed({"ADMIN", "MODERATOR", "KLIENT"})
-    @Path("/changePassword")
-    public Response changePassword(Principal principal, String newPassword, HttpServletResponse response) {
+//    @RolesAllowed({"ADMIN", "MODERATOR", "KLIENT"})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/changePassword/{newPassword}")
+    public Response changePassword(Principal principal,@PathParam("newPassword") String newPassword) {
     try {
 //        update cookie?
         userService.changePassword(principal.getName(), newPassword);

@@ -83,4 +83,25 @@ public class UserService {
         User user = userRepository.getByLogin(login);
         userRepository.update(user).setPassword(newPassword);
     }
+
+    public User getByUsernameAndPasswd(String username, String password, List<User> users) {
+        for (User user : users) {
+            if (username.equals(user.getLogin()) && password.equals(user.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public List<User> getByUsernameAndPasswd(String username, String passwordAsString) {
+//        for (User user : users) {
+//            if (username.equals(user.getLogin()) && passwordAsString.equals(user.getPassword())) {
+//                return user;
+//            }
+            return userRepository.findAll()
+                    .stream()
+                    .filter(user -> user.getLogin().contains(username))
+                    .filter(user -> user.getPassword().contains(passwordAsString))
+                    .collect(Collectors.toList());
+        }
 }

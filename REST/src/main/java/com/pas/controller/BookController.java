@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolation;
@@ -55,6 +56,7 @@ public class BookController {
     }
 
     @DELETE
+    @RolesAllowed({"Admin"})
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{bookId}")
     public Response deleteBook(@PathParam("bookId") UUID bookId) {

@@ -16,16 +16,18 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 
-@Path("/login")
+@Path("/auth")
 @RequestScoped
 public class AuthController {
     @Context
     private SecurityContext securityContext;
+
     @Inject
-    AuthIdentityStore authIdentityStore;
-    JWT jwtGenerator = new JWT();
+    private AuthIdentityStore authIdentityStore;
+    private final JWT jwtGenerator = new JWT();
 
     @POST
+    @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("GUEST")
     public Response login(Auth auth) {

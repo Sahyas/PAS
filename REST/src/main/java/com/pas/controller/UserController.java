@@ -153,7 +153,7 @@ public class UserController {
             return Response.status(Response.Status.CONFLICT).entity("This login is taken").build();
         }
     }
-    @PATCH
+    @PUT
     @RolesAllowed({"ADMIN", "MODERATOR", "KLIENT"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

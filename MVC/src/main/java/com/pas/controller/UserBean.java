@@ -35,7 +35,4 @@ public class UserBean {
         restClient.delete("/users/" + id);
     }
 
-    public void changePassword(Principal principal, String password){
-        changePassword(principal, password);
-    }
 }

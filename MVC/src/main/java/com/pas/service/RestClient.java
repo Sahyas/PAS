@@ -19,7 +19,7 @@ public class RestClient {
 
     public RestClient() {
         client = ClientBuilder.newClient();
-        target = client.target("http://localhost:8080");
+        target = client.target("https://localhost:8181");
     }
 
     public Response get(String path) {
@@ -31,7 +31,7 @@ public class RestClient {
             target = target.queryParam(entry.getKey(), entry.getValue());
         }
         Response response = target.path(path).request().post(Entity.entity(body, mediaType));
-        target = client.target("http://localhost:8080");
+        target = client.target("https://localhost:8181");
         return response;
     }
 

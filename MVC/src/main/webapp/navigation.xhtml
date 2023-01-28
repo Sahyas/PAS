@@ -9,10 +9,14 @@
     <title>Product Management</title>
 </h:head>
 <h:body>
+    <div>
+        #{mvcJwt.jwt}
+    </div>
     <h:form>
         <a href="users.xhtml" class="btn btn-outline-primary" role="button">Users</a>
         <a href="books.xhtml" class="btn btn-outline-primary" role="button">Books</a>
         <a href="rents.xhtml" class="btn btn-outline-primary" role="button">Rents</a>
+        <h:commandButton value="Logout" action="#{authBean.logout()}" />
     </h:form>
 </h:body>
 </html>

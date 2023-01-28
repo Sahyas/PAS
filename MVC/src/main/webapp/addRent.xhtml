@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Product Management</title>
+</h:head>
+<h:body>
+    <ui:include src="navigation.xhtml"></ui:include>
+    <h:form>
+        <h:outputLabel for="user">Client Id:</h:outputLabel>
+        <h:inputText id="user" value="#{rentBean.userId}"></h:inputText>
+        <br>
+            <h:outputLabel for="book">Book Id:</h:outputLabel>
+            <h:inputText id="book" value="#{rentBean.bookId}"></h:inputText>
+        </br>
+        <h:commandButton value="Submit"
+                         action="#{rentBean.addRent()}"></h:commandButton>
+        <h:panelGroup rendered="#{rentBean.statusCode eq 201}">
+            <h:outputText value="Rent successfully added"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{rentBean.statusCode eq 400}">
+            <h:outputText value="wrong format"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{rentBean.statusCode eq 404}">
+            <h:outputText value="wrong request"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{rentBean.statusCode eq 500}">
+            <h:outputText value="internal server ex"></h:outputText>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{rentBean.statusCode eq 200}">
+            <h:outputText value="200"></h:outputText>
+        </h:panelGroup>
+    </h:form>
+</h:body>
+</html>

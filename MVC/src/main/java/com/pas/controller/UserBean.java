@@ -3,10 +3,12 @@ package com.pas.controller;
 import com.pas.model.User;
 import com.pas.service.RestClient;
 
+import java.util.Collections;
 import java.util.List;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
+import jakarta.ws.rs.core.MediaType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +37,7 @@ public class UserBean {
     }
 
     public void addUser(User user) {
-        statusCode = restClient.post("/users/client", user).getStatus();
+        statusCode = restClient.post("/users/client", user, Collections.EMPTY_MAP, MediaType.APPLICATION_JSON_TYPE).getStatus();
     }
 
     public int getStatusCode() {

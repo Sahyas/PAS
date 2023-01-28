@@ -11,6 +11,7 @@
 </h:head>
 <h:body>
     <ui:include src="navigation.xhtml"></ui:include>
+    <a href="addRent.xhtml" class="btn btn-outline-primary" role="button">Add Rent</a>
     <h:form>
         <h:dataTable value="#{rentBean.rents}" var="rents">
             <h:column>
@@ -34,7 +35,7 @@
                 <h:outputText value="#{rents.user}"/>
             </h:column>
             <h:column>
-                <h:commandButton value="Delete" action="#{rentBean.delete(rents.id)}">
+                <h:commandButton value="End Rent" action="#{rentBean.endRent(rents.book.id)}">
                 </h:commandButton>
             </h:column>
         </h:dataTable>

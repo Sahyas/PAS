@@ -2,6 +2,7 @@ package com.pas.controller;
 
 import com.pas.auth.AuthIdentityStore;
 import com.pas.auth.JWT;
+import com.pas.dto.AuthDto;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -29,19 +30,18 @@ public class AuthController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/login/{login}{password}")
-//    @RolesAllowed("GUEST")
-    public Response login(@PathParam("login") String login, @PathParam("password") String password) {
+    @Path("/login")
+    @RolesAllowed("GUEST")
+    public Response login(AuthDto authDto) {
         try {
-            UsernamePasswordCredential usernamePasswordCredential = new UsernamePasswordCredential(login, password);
+            UsernamePasswordCredential usernamePasswordCredential = new UsernamePasswordCredential(authDto.getLogin(), authDto.getPassword());
             CredentialValidationResult credentialValidationResult = authIdentityStore.validate(usernamePasswordCredential);
 
-                String jwt = jwtGenerator.generateJWT(login, credentialValidationResult.getCallerGroups().iterator().next());
+                String jwt = jwtGenerator.generateJWT(authDto.getLogin(), credentialValidationResult.getCallerGroups().iterator().next());
                 return Response.ok().entity(jwt).build();
 
         } catch (IndexOutOfBoundsException e) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
-//        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 }

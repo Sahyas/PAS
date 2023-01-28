@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/html">
+
+
+    <h:body>
+        <h1>Login</h1>
+
+        <h:form>
+            Login:
+            <h:inputText id="loginInput" value = "#{authBean.login}" required="true" validatorMessage="Invalid login">
+                <f:validateLength minimum="5"/>
+
+            </h:inputText>
+            <br/>
+
+            Password:
+            <h:inputSecret id="passwordInput" value = "#{authBean.password}" required="true" validatorMessage="Invalid password">
+                <f:validateLength minimum="9"/>
+
+            </h:inputSecret>
+            <br/>
+
+            <h:commandButton action="${authBean.login()}" value="log in"/>
+            <br/>
+            <h:message for="loginInput" style="color:red"/>
+            <h:message for="passwordInput" style="color:red"/>
+        </h:form>
+
+        <h:button value="Home Page" outcome="toHomePage" />
+        <ui:debug hotkey="x" />
+    </h:body>
+
+</ui:composition>

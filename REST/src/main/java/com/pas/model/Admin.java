@@ -10,7 +10,7 @@ public class Admin extends User {
     public Admin(UUID id, String login, String password, String firstName, String lastName,
                  String personalId, float debt, int age, boolean isActive) {
 
-        super(id, Roles.ADMIN, login, password, firstName, lastName, personalId, debt, age, isActive);
+        super(id, login, password, firstName, lastName, personalId, debt, age, isActive);
 
     }
 }

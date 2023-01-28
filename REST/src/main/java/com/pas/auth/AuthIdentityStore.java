@@ -34,14 +34,14 @@ public class AuthIdentityStore implements IdentityStore {
     public Set<String> getCallerGroups(CredentialValidationResult validationResult) {
         User user = (User) userService.findAllClients().stream().filter(user1 -> user1.getLogin().equals(
                 validationResult.getCallerPrincipal().getName()));
-        return new HashSet<>(Collections.singleton(user.getUserType().toString()));
+        return new HashSet<>(Collections.singleton(user.getClass().getSimpleName()));
     }
 
     public CredentialValidationResult validate(UsernamePasswordCredential credential) {
         User user = userService.getByUsernameAndPasswd(credential.getCaller(),
                 credential.getPasswordAsString()).get(0);
         if (user != null && user.isActive()) {
-            return new CredentialValidationResult(user.getLogin(), new HashSet<>(Collections.singleton(user.getUserType().toString())));
+            return new CredentialValidationResult(user.getLogin(), new HashSet<>(Collections.singleton(user.getClass().getSimpleName())));
         }
         return CredentialValidationResult.INVALID_RESULT;
     }

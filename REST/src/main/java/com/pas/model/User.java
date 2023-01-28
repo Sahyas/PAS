@@ -29,9 +29,6 @@ import lombok.experimental.SuperBuilder;
         @JsonSubTypes.Type(Client.class)}
 )
 public class User {
-    @NotEmpty
-    @Getter
-    private Roles userType;
     private UUID id;
     @NotEmpty
     private String login;
@@ -50,10 +47,9 @@ public class User {
 
     private boolean isActive;
 
-    public User(UUID id, Roles userType, String login, String password, String firstName, String lastName,
+    public User(UUID id, String login, String password, String firstName, String lastName,
                 String personalId, float debt, int age, boolean isActive) {
         this.id = id;
-        this.userType = userType;
         this.login = login;
         this.password = password;
         this.firstName = firstName;

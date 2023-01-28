@@ -3,7 +3,6 @@ package com.pas.controller;
 import com.pas.model.User;
 import com.pas.service.RestClient;
 
-import java.util.Collections;
 import java.util.List;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -36,11 +35,7 @@ public class UserBean {
         restClient.delete("/users/" + id);
     }
 
-    public void addUser(User user) {
-        statusCode = restClient.post("/users/client", user, Collections.EMPTY_MAP, MediaType.APPLICATION_JSON_TYPE).getStatus();
-    }
-
-    public int getStatusCode() {
-        return this.statusCode;
+    public void changePassword(Principal principal, String password){
+        changePassword(principal, password);
     }
 }

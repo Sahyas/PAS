@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -83,5 +84,9 @@ public class UserRepository implements RepositoryInterface<User> {
         this.add(client3);
     }
 
-
+    public User getByLoginAndPassword(String login, String password) {
+        return users.stream()
+                .filter(client -> client.getLogin().equals(login) && client.getPassword().equals(password))
+                .findFirst().get();
+    }
 }

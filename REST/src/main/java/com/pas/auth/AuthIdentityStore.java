@@ -15,10 +15,7 @@ import java.util.*;
 //@ApplicationScoped
 public class AuthIdentityStore implements IdentityStore {
     @Inject
-    private UserService userService;
-
-//    @Inject
-//    private UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public int priority() {
@@ -32,14 +29,14 @@ public class AuthIdentityStore implements IdentityStore {
 
     @Override
     public Set<String> getCallerGroups(CredentialValidationResult validationResult) {
-        User user = (User) userService.findAllClients().stream().filter(user1 -> user1.getLogin().equals(
+        User user = (User) userRepository.findAll().stream().filter(user1 -> user1.getLogin().equals(
                 validationResult.getCallerPrincipal().getName()));
         return new HashSet<>(Collections.singleton(user.getClass().getSimpleName()));
     }
 
     public CredentialValidationResult validate(UsernamePasswordCredential credential) {
-        User user = userService.getByUsernameAndPasswd(credential.getCaller(),
-                credential.getPasswordAsString()).get(0);
+        User user = userRepository.getByLoginAndPassword(credential.getCaller(),
+                credential.getPasswordAsString());
         if (user != null && user.isActive()) {
             return new CredentialValidationResult(user.getLogin(), new HashSet<>(Collections.singleton(user.getClass().getSimpleName())));
         }

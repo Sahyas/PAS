@@ -5,6 +5,6 @@ import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
 @ApplicationPath("/")
-@DeclareRoles({"Admin", "MODERATOR", "CLIENT", "GUEST"})
+@DeclareRoles({"Admin", "Moderator", "Client", "Guest"})
 public class PAS extends Application {
 }

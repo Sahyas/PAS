@@ -53,6 +53,7 @@
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>9.2</version>
         </dependency>
+
     </dependencies>
 
     <build>

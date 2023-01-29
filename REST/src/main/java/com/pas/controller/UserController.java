@@ -1,5 +1,6 @@
 package com.pas.controller;
 
+import com.pas.model.NewPassword;
 import com.pas.model.User;
 import com.pas.service.impl.RentService;
 import com.pas.service.impl.UserService;
@@ -14,10 +15,10 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.SecurityContext;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -86,6 +87,7 @@ public class UserController {
     }
 
     @DELETE
+//    @RolesAllowed({"Admin", "Client", "Moderator"})
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{userId}")
     public Response deleteClient(@PathParam("userId") UUID userId) {
@@ -154,14 +156,13 @@ public class UserController {
         }
     }
     @PUT
-    @RolesAllowed({"ADMIN", "MODERATOR", "KLIENT"})
+//    @RolesAllowed({"ADMIN", "MODERATOR", "KLIENT"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/changePassword/{newPassword}")
-    public Response changePassword(Principal principal,@PathParam("newPassword") String newPassword) {
+    @Path("/changePassword")
+    public Response changePassword(NewPassword newPassword) {
     try {
-//        update cookie?
-        userService.changePassword(principal.getName(), newPassword);
+        userService.changePassword(newPassword.getNewPassword(), newPassword.getOldPassword());
         return Response.ok("Password changed").build();
     } catch (IllegalStateException ex) {
         return Response.status(Response.Status.NOT_FOUND).build();

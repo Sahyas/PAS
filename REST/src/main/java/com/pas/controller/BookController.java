@@ -56,7 +56,7 @@ public class BookController {
     }
 
     @DELETE
-    @RolesAllowed({"Admin"})
+//    @RolesAllowed({"Admin", "Client", "Moderator"})
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{bookId}")
     public Response deleteBook(@PathParam("bookId") UUID bookId) {

@@ -29,7 +29,7 @@ public class AuthController {
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed("GUEST")
+//    @RolesAllowed("GUEST")
     public Response login(Auth auth) {
         try {
             UsernamePasswordCredential usernamePasswordCredential = new UsernamePasswordCredential(auth.getLogin(), auth.getPassword());

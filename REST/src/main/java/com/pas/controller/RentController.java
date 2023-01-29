@@ -6,6 +6,7 @@ import com.pas.service.impl.RentService;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -41,6 +42,7 @@ public class RentController {
             return Response.status(Response.Status.CONFLICT).entity("Book with id " + bookId + " is not rented").build();
         }
     }
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

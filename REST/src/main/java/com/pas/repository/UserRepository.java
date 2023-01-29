@@ -1,5 +1,6 @@
 package com.pas.repository;
 
+import com.pas.model.Admin;
 import com.pas.model.Client;
 import com.pas.model.User;
 
@@ -78,10 +79,13 @@ public class UserRepository implements RepositoryInterface<User> {
                 "lastName1", "11", 41, 121, true);
         User client3 = new Client(UUID.randomUUID(), "login2", "password2", "name2",
                 "lastName2", "12", 42, 122, true);
+        User admin = new Admin(UUID.randomUUID(), "admin", "admin", "name2",
+                "lastName2", "12", 42, 122, true);
 
         this.add(client);
         this.add(client2);
         this.add(client3);
+        this.add(admin);
     }
 
     public User getByLoginAndPassword(String login, String password) {

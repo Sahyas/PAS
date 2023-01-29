@@ -8,11 +8,14 @@ import com.pas.repository.RentRepository;
 import com.pas.repository.UserRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
+import jdk.jshell.spi.ExecutionControl;
 
 @ApplicationScoped
 public class UserService {
@@ -20,6 +23,8 @@ public class UserService {
     private UserRepository userRepository;
     @Inject
     private RentRepository rentRepository;
+    @Inject
+    private SecurityContext securityContext;
 
     public User getClientById(UUID id) {
         return userRepository.getById(id);
@@ -79,9 +84,22 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public void changePassword(String login, String newPassword){
-        User user = userRepository.getByLogin(login);
-        userRepository.update(user).setPassword(newPassword);
+    public void changePassword(String newPassword, String oldPassword){
+        String username = securityContext.getCallerPrincipal().getName();
+        if (username == null ) {
+            throw new IllegalArgumentException("Old password is wrong.");
+        }
+        try {
+            User user = userRepository.getByLogin(username);
+            if (!user.getPassword().equals(oldPassword)) {
+                throw new IllegalArgumentException("Old password is wrong.");
+            }
+            user.setPassword(newPassword);
+
+        } catch (NoSuchElementException e) {
+
+            throw new IllegalArgumentException("Client does not exist");
+        }
     }
 
 

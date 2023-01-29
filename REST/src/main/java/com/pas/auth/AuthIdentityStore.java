@@ -16,6 +16,8 @@ import java.util.*;
 public class AuthIdentityStore implements IdentityStore {
     @Inject
     private UserRepository userRepository;
+    @Context
+    private SecurityContext securityContext;
 
     @Override
     public int priority() {

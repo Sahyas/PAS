@@ -51,7 +51,7 @@
                 <h:outputText value="#{users.active}"/>
             </h:column>
             <h:column>
-                <h:commandButton value="Delete" action="#{userBean.deleteUser(users.id)}">
+                <h:commandButton rendered="#{userRole.isAdmin()}" value="Delete" action="#{userBean.deleteUser(users.id)}">
                 </h:commandButton>
             </h:column>
         </h:dataTable>

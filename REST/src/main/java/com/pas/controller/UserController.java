@@ -87,7 +87,7 @@ public class UserController {
     }
 
     @DELETE
-//    @RolesAllowed({"Admin", "Client", "Moderator"})
+    @RolesAllowed({"Admin", "Moderator"})
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{userId}")
     public Response deleteClient(@PathParam("userId") UUID userId) {
@@ -155,10 +155,10 @@ public class UserController {
             return Response.status(Response.Status.CONFLICT).entity("This login is taken").build();
         }
     }
-    @PUT
+    @PATCH
 //    @RolesAllowed({"ADMIN", "MODERATOR", "KLIENT"})
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/changePassword")
     public Response changePassword(NewPassword newPassword) {
     try {

@@ -44,11 +44,11 @@ function Header() {
                     <Box sx={{ flex: 1 }} />
                     <Box sx={{ flex: 1 }}
                     />
-                    
+
                     {window.localStorage.length !== null ? (
                         <Link to="/profile">
-                            <Button variant="contained" 
-                                sx={{ mt: 3, mb: 2 }} 
+                            <Button variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
                                 color="success">
                                     Profile
                             </Button>
@@ -56,7 +56,7 @@ function Header() {
                     ) : (
                         <Link to="/login">
                             <Button variant="contained" 
-                                sx={{ mt: 3, mb: 2 }} 
+                                sx={{ mt: 3, mb: 2 }}
                                 color="success">
                                     Profile
                             </Button>

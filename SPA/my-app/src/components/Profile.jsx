@@ -36,8 +36,8 @@ function Profile() {
           };
           axios
           .patch(`/users/changePassword`, passwordChange)
-          .then((res) => 
-          //window.location.reload()  
+          .then((res) =>
+          //window.location.reload()
           console.log(res.data))
           .catch((err) => {
             console.log(err);
@@ -100,8 +100,8 @@ function Profile() {
                 Change password
               </Button><br />
               <Link to="/login">
-              <Button 
-              color="success" 
+              <Button
+              color="success"
               onClick={handleLogout}
               variant="contained">
                 Log out

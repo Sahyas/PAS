@@ -27,9 +27,9 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+
 import java.io.IOException;
 import java.util.Collections;
-
 
 @ApplicationScoped
 @Named
@@ -51,8 +51,13 @@ public class authBean {
 
 
     public String login() {
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
         String jwt;
-
+//        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         Auth auth = new Auth(username, password);
         String body = null;
         try {
@@ -61,12 +66,17 @@ public class authBean {
             throw new RuntimeException(e);
         }
         jwt = restClient.post(loginURL, body, Collections.EMPTY_MAP, MediaType.valueOf(MediaType.APPLICATION_JSON)).readEntity(String.class);
+
         MvcJwt.setJwt(jwt);
         MvcJwt.setUsername(username);
-        return "users";
+        return "start";
     }
 
-
+//    public String logout() throws ServletException, jakarta.servlet.ServletException {
+//        request.logout();
+//        this.MvcJwt.setJwt("");
+//        return "login";
+//    }
 
 
     public String logout() throws ServletException {

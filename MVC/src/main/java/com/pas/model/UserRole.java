@@ -31,7 +31,7 @@ public class UserRole implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().isUserInRole("Admin");
     }
 
-    public boolean isUser() {
+    public boolean isClient() {
         return FacesContext.getCurrentInstance().getExternalContext().isUserInRole("Client");
     }
 
@@ -43,6 +43,17 @@ public class UserRole implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().isUserInRole("Guest");
     }
 
-
+    public String getRole() {
+        if (this.isAdmin()) {
+            return "Admin";
+        }
+        if (this.isModerator()) {
+            return "Moderator";
+        }
+        if (this.isClient()) {
+            return "Client";
+        }
+        return "Guest";
+    }
 
 }

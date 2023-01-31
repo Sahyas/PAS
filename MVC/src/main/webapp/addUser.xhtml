@@ -7,7 +7,7 @@
 </h:head>
 <h:body>
     <ui:include src="navigation.xhtml"></ui:include>
-    <h:form>
+    <h:form rendered="#{userRole.isAdmin()}">
         <h:outputLabel for="firstName">FirstName:</h:outputLabel>
         <h:inputText id="firstName" value="#{userBean.user.firstName}"></h:inputText>
         <br>
@@ -23,7 +23,7 @@
             <h:inputText id="age" value="#{userBean.user.age}"></h:inputText>
         </br>
         <h:commandButton value="Submit"
-                         action="#{userBean.addUser(userBean.user)}"></h:commandButton>
+                         action="#{userBean.createClient(userBean.user)}"></h:commandButton>
         <h:panelGroup rendered="#{userBean.statusCode eq 201}">
             <h:outputText value="User successfully added"></h:outputText>
         </h:panelGroup>

@@ -7,7 +7,7 @@
 </h:head>
 <h:body>
     <ui:include src="navigation.xhtml"></ui:include>
-    <h:form>
+    <h:form rendered="#{userRole.isAdmin() || userRole.isModerator || userRole.isClient}">
         <h:outputLabel for="user">Client Id:</h:outputLabel>
         <h:inputText id="user" value="#{rentBean.userId}"></h:inputText>
         <br>

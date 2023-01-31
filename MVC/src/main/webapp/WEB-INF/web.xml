@@ -3,15 +3,38 @@
          xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+    <security-role>
+        <role-name>Admin</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>Moderator</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>Client</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>Guest</role-name>
+    </security-role>
+
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>/faces/login.xhtml</welcome-file>
+    </welcome-file-list>
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
@@ -24,4 +47,108 @@
         <param-name>application.description</param-name>
         <param-value>Przykładowa aplikacja JSF</param-value>
     </context-param>
+
+
+
+    <welcome-file-list>
+        <welcome-file>navigation.xhtml</welcome-file>
+    </welcome-file-list>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Viewpoint Secure URLs</web-resource-name>
+            <url-pattern>/</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>users</web-resource-name>
+            <url-pattern>/faces/users.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Moderator</role-name>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>books</web-resource-name>
+            <url-pattern>/faces/books.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Guest</role-name>
+            <role-name>Client</role-name>
+            <role-name>Moderator</role-name>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>changePassword</web-resource-name>
+            <url-pattern>/faces/changePassword.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Client</role-name>
+            <role-name>Moderator</role-name>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>rents</web-resource-name>
+            <url-pattern>/faces/rents.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Client</role-name>
+            <role-name>Moderator</role-name>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>addRents</web-resource-name>
+            <url-pattern>/faces/addRent.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Client</role-name>
+            <role-name>Moderator</role-name>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>addUsers</web-resource-name>
+            <url-pattern>/faces/addUser.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>addBooks</web-resource-name>
+            <url-pattern>/faces/addBooks.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Moderator</role-name>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+<!--    <login-config>-->
+<!--        <auth-method>FORM</auth-method>-->
+<!--        <realm-name>file</realm-name>-->
+<!--        <form-login-config>-->
+<!--            <form-login-page>/login.xhtml</form-login-page>-->
+<!--            <form-error-page>/login.xhtml</form-error-page>-->
+<!--        </form-login-config>-->
+<!--    </login-config>-->
 </web-app>

@@ -1,12 +1,11 @@
-package com.pas.main;
+package com.pas;
 
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.annotation.FacesConfig;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
-@ApplicationPath("/")
-@ApplicationScoped
-@DeclareRoles({"Admin", "Moderator", "Client", "Guest"})
+@FacesConfig
 public class PAS extends Application {
 }

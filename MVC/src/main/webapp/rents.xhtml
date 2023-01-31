@@ -10,32 +10,35 @@
     <title>Product Management</title>
 </h:head>
 <h:body>
+    <div>
+        #{request.userPrincipal}
+    </div>
     <ui:include src="navigation.xhtml"></ui:include>
     <a href="addRent.xhtml" class="btn btn-outline-primary" role="button">Add Rent</a>
-    <h:form>
+    <h:form rendered="#{userRole.isAdmin() || userRole.isModerator()}">
         <h:dataTable value="#{rentBean.rents}" var="rents">
             <h:column>
                 <f:facet name="header">ID</f:facet>
-                <h:outputText value="#{rents.id}"/>
+                <h:outputText value='#{rents.get("id")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">Begin Time</f:facet>
-                <h:outputText value="#{rents.beginTime}"/>
+                <h:outputText value='#{rents.get("beginTime")}'/>
             </h:column>
-            <h:column>
-                <f:facet name="header">End Time</f:facet>
-                <h:outputText value="#{rents.endTime}"/>
-            </h:column>
+<!--            <h:column>-->
+<!--                <f:facet name="header">End Time</f:facet>-->
+<!--                <h:outputText value='#{rents.get("endTime")}'/>-->
+<!--            </h:column>-->
             <h:column>
                 <f:facet name="header">Book</f:facet>
-                <h:outputText value="#{rents.book}"/>
+                <h:outputText value='#{rents.get("book")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">User</f:facet>
-                <h:outputText value="#{rents.user}"/>
+                <h:outputText value='#{rents.get("user")}'/>
             </h:column>
             <h:column>
-                <h:commandButton value="End Rent" action="#{rentBean.endRent(rents.book.id)}">
+                <h:commandButton rendered="#{userRole.isAdmin()} || #{userRole.isModerator()}" value="End Rent" action="#{rentBean.endRent(rents.book.id)}">
                 </h:commandButton>
             </h:column>
         </h:dataTable>

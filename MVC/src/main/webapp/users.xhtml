@@ -12,46 +12,50 @@
 <h:body>
     <ui:include src="navigation.xhtml"></ui:include>
     <a href="addUser.xhtml" class="btn btn-outline-primary" role="button">Add User</a>
-    <h:form>
+    <h:form rendered="#{userRole.isAdmin() || userRole.isModerator()}">
         <h:dataTable value="#{userBean.users}" var="users">
             <h:column>
                 <f:facet name="header">ID</f:facet>
-                <h:outputText value="#{users.id}"/>
+                <h:outputText value='#{users.get("id")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">login</f:facet>
-                <h:outputText value="#{users.login}"/>
+                <h:outputText value='#{users.get("login")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">password</f:facet>
-                <h:outputText value="#{users.password}"/>
+                <h:outputText value='#{users.get("password")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">firstName</f:facet>
-                <h:outputText value="#{users.firstName}"/>
+                <h:outputText value='#{users.get("firstName")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">lastName</f:facet>
-                <h:outputText value="#{users.lastName}"/>
+                <h:outputText value='#{users.get("lastName")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">personalId</f:facet>
-                <h:outputText value="#{users.personalId}"/>
+                <h:outputText value='#{users.get("personalId")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">debt</f:facet>
-                <h:outputText value="#{users.debt}"/>
+                <h:outputText value='#{users.get("debt")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">age</f:facet>
-                <h:outputText value="#{users.age}"/>
+                <h:outputText value='#{users.get("age")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">Active</f:facet>
-                <h:outputText value="#{users.active}"/>
+                <h:outputText value='#{users.get("active")}'/>
             </h:column>
             <h:column>
-                <h:commandButton rendered="#{userRole.isAdmin()}" value="Delete" action="#{userBean.deleteUser(users.id)}">
+                <h:commandButton rendered="#{userRole.isAdmin()}" value="Delete" action='#{userBean.deleteUser(users.get("id"))}'>
+                </h:commandButton>
+            </h:column>
+            <h:column>
+                <h:commandButton rendered="#{userRole.isAdmin()}" value="Change Activity" action='#{userBean.changeActivity(users.get("id"))}'>
                 </h:commandButton>
             </h:column>
         </h:dataTable>

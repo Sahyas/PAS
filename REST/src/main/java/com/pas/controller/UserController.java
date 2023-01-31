@@ -37,8 +37,8 @@ public class UserController {
     private RentService rentService;
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"Admin"})
     @Path("/client")
     public Response saveClient(User user) {
         Set<ConstraintViolation<User>> violation = validator.validate(user);
@@ -81,13 +81,14 @@ public class UserController {
     }
 
     @GET
+    @RolesAllowed({"Admin", "Moderator"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getClients() {
         return userService.findAllClients();
     }
 
     @DELETE
-    @RolesAllowed({"Admin", "Moderator"})
+    @RolesAllowed({"Admin"})
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{userId}")
     public Response deleteClient(@PathParam("userId") UUID userId) {
@@ -109,6 +110,7 @@ public class UserController {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"Admin"})
     @Path("/activity/{userId}")
     public User changeActivity(@PathParam("userId") UUID userId) {
         User user = userService.getClientById(userId);
@@ -156,7 +158,7 @@ public class UserController {
         }
     }
     @PATCH
-//    @RolesAllowed({"ADMIN", "MODERATOR", "KLIENT"})
+    @RolesAllowed({"Admin", "Moderator", "Client"})
 //    @Produces(MediaType.APPLICATION_JSON)
 //    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/changePassword")

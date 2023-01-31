@@ -9,7 +9,7 @@ public class JWT {
         return Jwts.builder()
                 .setSubject(login)
                 .setIssuedAt(new Date())
-                .claim("roles", role)
+                .claim("role", role)
                 .setExpiration(Date.from(Instant.now().plusSeconds(3600)))
                 .signWith(SignatureAlgorithm.HS256, secrect)
                 .compact();

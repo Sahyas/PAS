@@ -1,6 +1,7 @@
 package com.pas.controller;
 
 import com.pas.model.Rent;
+import com.pas.model.newRent;
 import com.pas.service.impl.RentService;
 
 import java.util.List;
@@ -21,9 +22,9 @@ public class RentController {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
-    public Response createRent(@QueryParam("clientId") UUID clientId, @QueryParam("bookId") UUID bookId) {
-        Rent rent = rentService.rentBook(clientId, bookId);
+    @RolesAllowed({"Admin", "Moderator", "Klient"})
+    public Response createRent(newRent r) {
+        Rent rent = rentService.rentBook(r.getClientId(), r.getBookId());
         if (rent != null) {
             return Response.status(Response.Status.CREATED).entity(rent).build();
         } else {
@@ -34,8 +35,9 @@ public class RentController {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/return/{bookId}")
-    public Response returnRent(@PathParam("bookId") UUID bookId) {
+    @RolesAllowed({"Admin", "Moderator"})
+    @Path("/return")
+    public Response returnRent(UUID bookId) {
         if (rentService.returnBook(bookId) != null) {
             return Response.ok().build();
         } else {
@@ -46,6 +48,7 @@ public class RentController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"Admin", "Moderator", "Klient"})
     public List<Rent> getRents() {
         return rentService.findAllRents();
     }

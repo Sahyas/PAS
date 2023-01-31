@@ -59,4 +59,13 @@ public class User {
         this.age = age;
         this.isActive = isActive;
     }
+
+    public User(String login, String password, String firstName, String lastName, String personalId, int age) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personalId = personalId;
+        this.age = age;
+    }
 }

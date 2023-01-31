@@ -29,6 +29,7 @@ public class BookController {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"Admin", "Moderator"})
     public Response saveBook(Book book) {
         Set<ConstraintViolation<Book>> violation = validator.validate(book);
         List<String> errors = violation.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
@@ -51,12 +52,13 @@ public class BookController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"Admin", "Moderator", "Client", "Guest"})
     public List<Book> getBooks() {
         return bookService.findAllBooks();
     }
 
     @DELETE
-//    @RolesAllowed({"Admin", "Client", "Moderator"})
+    @RolesAllowed({"Admin"})
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{bookId}")
     public Response deleteBook(@PathParam("bookId") UUID bookId) {

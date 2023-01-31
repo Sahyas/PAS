@@ -5,30 +5,30 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/html">
 
+        <ui:include src="navigation.xhtml"></ui:include>
+        <h:body>
+            <h1>Login</h1>
 
-    <h:body>
-        <h1>Login</h1>
+            <h:form>
+                Login:
+                <h:inputText id="loginInput" value = "#{authBean.username}" required="true" validatorMessage="Invalid login">
+                    <f:validateLength minimum="5"/>
 
-        <h:form>
-            Login:
-            <h:inputText id="loginInput" value = "#{authBean.username}" required="true" validatorMessage="Invalid login">
-                <f:validateLength minimum="5"/>
+                </h:inputText>
+                <br/>
 
-            </h:inputText>
-            <br/>
+                Password:
+                <h:inputSecret id="passwordInput" value = "#{authBean.password}" required="true" validatorMessage="Invalid password">
+                    <f:validateLength minimum="5"/>
 
-            Password:
-            <h:inputSecret id="passwordInput" value = "#{authBean.password}" required="true" validatorMessage="Invalid password">
-                <f:validateLength minimum="5"/>
+                </h:inputSecret>
+                <br/>
 
-            </h:inputSecret>
-            <br/>
-
-            <h:commandButton value='login' action='#{authBean.login()}' id="login"/>
-            <br/>
-            <h:message for="loginInput" style="color:red"/>
-            <h:message for="passwordInput" style="color:red"/>
-        </h:form>
-    </h:body>
+                <h:commandButton value='login' action='#{authBean.login()}' id="login" onclick="location.reload()"/>
+                <br/>
+                <h:message for="loginInput" style="color:red"/>
+                <h:message for="passwordInput" style="color:red"/>
+            </h:form>
+        </h:body>
 
 </html>

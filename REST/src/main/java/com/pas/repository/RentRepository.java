@@ -1,13 +1,14 @@
 package com.pas.repository;
 
 
-import com.pas.model.Rent;
+import com.pas.model.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.extern.slf4j.Slf4j;
 

@@ -10,6 +10,8 @@ import AddBook from "./AddBook";
 import AddUser from "./AddUser";
 import Login from "./Login";
 import Profile from "./Profile";
+import RentAdded from "./AddRentSuccess";
+import RentError from "./AddRentError";
 
 function Layout() {
     return (
@@ -24,6 +26,8 @@ function Layout() {
                 <Route path="/users/add" element={<AddUser />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/added" element={<RentAdded />} />
+                <Route path="/error" element={<RentError />} />
 
                 <Route path="*" element={<Navigate
                     to="/books" replace />} />

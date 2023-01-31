@@ -1,6 +1,6 @@
 package com.pas.provider;
 
-
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
@@ -23,6 +23,6 @@ public class CorsFilter implements ContainerResponseFilter {
                 "origin, content-type, accept, authorization");
         responseContext.getHeaders().add(
                 "Access-Control-Allow-Methods",
-                "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+                "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH");
     }
 }

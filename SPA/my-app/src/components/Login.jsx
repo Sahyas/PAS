@@ -1,23 +1,17 @@
-import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
-    Container,
-    CssBaseline,
-    Box,
-    Avatar,
-    Typography,
-    TextField,
-    FormControlLabel,
-    Checkbox,
-    Button,
-    Grid,
-    Alert,
-    AlertTitle,
-  } from "@mui/material";
+  Container,
+  CssBaseline,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  AlertTitle,
+} from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -34,7 +28,17 @@ function Login() {
             password
         };
 
-        //axios.Logowanie
+        axios
+        .post(`/auth/login`, credentials)
+        .then( res => {
+          axios.defaults.headers.common["Authorization"] = `Bearer ${res.data}`;
+          localStorage.setItem("jwtToken", `Bearer ${res.data}`);
+          //localStorage.setItem("user", JSON.stringify(res.data.userData));
+          console.log(localStorage);
+          navigate(`/profile`)
+        }).catch( err => {
+          setErrorMessage(err.response.data)
+        });
     }
 
     return (
@@ -60,7 +64,7 @@ function Login() {
             <strong>{errorMessage}</strong>
           </Alert>
         )}
-          <Typography component="h1" variant="h5">
+          <Typography component="h2" variant="h7">
             Sign in
           </Typography>
           <Box
@@ -97,6 +101,7 @@ function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
             >
               Sign In
             </Button>

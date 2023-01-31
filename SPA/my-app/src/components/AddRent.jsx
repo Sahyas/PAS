@@ -14,10 +14,11 @@ function AddRent() {
         axios
         .post(`/rents?clientId=${clientId}&bookId=${bookId}`)
         .then((res) => {
-            navigate(`/rents`);
+            navigate(`/added`);
         })
         .catch((err) => {
             setErrorMessage(err.response.data);
+            navigate(`/error`)
           });
     };
 

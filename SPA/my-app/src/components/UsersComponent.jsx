@@ -20,7 +20,7 @@ function Users() {
         fetcher
     );
 
-    console.log(data);
+    console.log(localStorage);
 
     return (
         <Box>

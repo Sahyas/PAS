@@ -44,20 +44,21 @@ function Header() {
                     <Box sx={{ flex: 1 }} />
                     <Box sx={{ flex: 1 }}
                     />
-                    {localStorage.getItem("jwtToken") != undefined ? (
+                    
+                    {window.localStorage.length !== null ? (
                         <Link to="/profile">
                             <Button variant="contained" 
-                            sx={{ mt: 3, mb: 2 }} 
-                            color="success">
-                                Profile
+                                sx={{ mt: 3, mb: 2 }} 
+                                color="success">
+                                    Profile
                             </Button>
                         </Link>
                     ) : (
                         <Link to="/login">
                             <Button variant="contained" 
-                            sx={{ mt: 3, mb: 2 }} 
-                            color="success">
-                                Profile
+                                sx={{ mt: 3, mb: 2 }} 
+                                color="success">
+                                    Profile
                             </Button>
                         </Link>
                     )}

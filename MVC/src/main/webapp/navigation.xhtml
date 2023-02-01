@@ -14,17 +14,13 @@
         <h:outputText value='#{userRole.getRole()}'/>
     </h:form>
     <h:form>
-<!--        <a href="users.xhtml" class="btn btn-outline-primary" role="button">Users</a>-->
-<!--        <a href="books.xhtml" class="btn btn-outline-primary" role="button">Books</a>-->
-<!--        <a href="rents.xhtml" class="btn btn-outline-primary" role="button">Rents</a>-->
-<!--        <a href="changePassword.xhtml" class="btn btn-outline-primary" role="button">Password</a>-->
-<!--        <a href="login.xhtml" class="btn btn-outline-primary" role="button">Login</a>-->
         <h:outputLink value="users.xhtml" rendered="#{userRole.isAdmin() || userRole.isModerator()}"><li>Users</li></h:outputLink>
         <h:outputLink value="books.xhtml" ><li>Books</li></h:outputLink>
         <h:outputLink value="rents.xhtml" rendered="#{userRole.isAdmin() || userRole.isModerator()}"><li>Rents</li></h:outputLink>
         <h:outputLink value="login.xhtml" rendered="#{userRole.isGuest()}"><li>Login</li></h:outputLink>
         <h:outputLink value="changePassword.xhtml" rendered="#{!userRole.isGuest()}" ><li>Change password</li></h:outputLink>
-
+        <h:outputLink value="updateUser.xhtml" rendered="#{!userRole.isGuest()}"><li>Update account</li></h:outputLink>
+        <h:outputLink value="profile.xhtml" rendered="#{!userRole.isGuest()}"><li>Profile</li></h:outputLink>
         <h:commandButton value="Logout" action="#{authBean.logout()}" rendered="#{!userRole.isGuest()}"/>
     </h:form>
 </h:body>

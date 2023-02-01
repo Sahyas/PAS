@@ -45,18 +45,13 @@ public class RentBean {
     private org.json.JSONArray rents;
     public RentBean() {
     }
-//    public List<Rent> getRents() {
-//        this.rents = restClient.get("/rents").readEntity(List.class);
-//        return rents;
-//    }
-//
+
 
     public JSONArray getRents() {
         org.json.JSONArray arr = getAllRents();
         if (arr != null) {
             this.rents = arr;
         }
-//        users = restClient.get("/users").readEntity(List.class);
         return rents;
     }
 
@@ -76,15 +71,7 @@ public class RentBean {
         }
     }
 
-//    public void endRent(String id) {
-//        log.error("/rents/return/" + id);
-//        restClient.post("/rents/return/" + id, "", Collections.EMPTY_MAP, MediaType.valueOf(MediaType.TEXT_PLAIN));
-//    }
-
     public void addRent() {
-//        Map<String, String> queryParams = new HashMap<>();
-//        queryParams.put("clientId", userId);
-//        queryParams.put("bookId", bookId);
         JSONObject object = new JSONObject();
         object.put("clientId", userId);
         object.put("bookId", bookId);

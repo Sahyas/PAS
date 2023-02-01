@@ -37,7 +37,6 @@ import org.json.JSONArray;
 @Setter
 @Slf4j
 public class BookBean {
-//    private List<Book> books;
     @Inject
     private MvcJwt mvcJwt;
     private Book book = new Book();
@@ -50,17 +49,11 @@ public class BookBean {
     public BookBean() {
     }
 
-//    public List<Book> getBooks() {
-//        this.books = restClient.get("/books").readEntity(List.class);
-//        return books;
-//    }
-
     public JSONArray getBooks() {
         org.json.JSONArray arr = getAllBooks();
         if (arr != null) {
             this.books = arr;
         }
-//        users = restClient.get("/users").readEntity(List.class);
         return books;
     }
 
@@ -94,9 +87,6 @@ public class BookBean {
             throw new RuntimeException(e);
         }
     }
-//    public void addBook(Book book) {
-//        statusCode = restClient.post("/books", book, Collections.EMPTY_MAP, MediaType.APPLICATION_JSON_TYPE).getStatus();
-//    }
 
     public void addBook(Book book) throws JsonProcessingException {
         String clientJSON = objectMapper.writeValueAsString(book);

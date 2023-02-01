@@ -11,14 +11,11 @@ import java.text.ParseException;
 
 public class JWS {
 
-    private String secrect = "xddddddddddddddddd";
+    private String secrect = "xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
 
     public String generateJws(String payload) throws JOSEException {
-        JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
-        Payload jwsPayload = new Payload(payload);
-        JWSObject jwsObject = new JWSObject(header, jwsPayload);
-        byte[] secret = secrect.getBytes();
-        JWSSigner signer = new MACSigner(secret);
+        JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.HS256), new Payload(payload));
+        JWSSigner signer = new MACSigner(secrect);
         jwsObject.sign(signer);
         return jwsObject.serialize();
     }

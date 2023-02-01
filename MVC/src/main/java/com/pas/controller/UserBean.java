@@ -26,6 +26,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 @Named
 @RequestScoped
@@ -40,10 +41,28 @@ public class UserBean {
     private org.json.JSONArray users;
     private User user = new User();
     private int statusCode;
+    private User profile = new User();
+
     private ObjectMapper objectMapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     public UserBean() {
+    }
+
+    public JSONObject getProfile() {
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            RequestBuilder requestBuilder = RequestBuilder.get()
+                    .setUri("https://localhost:8181/users/match/" + mvcJwt.getUsername());
+            if (!mvcJwt.getJwt().equals("")) {
+                requestBuilder.setHeader("Authorization", "Bearer " + mvcJwt.getJwt());
+            }
+            HttpUriRequest request = requestBuilder.build();
+            HttpResponse response = httpclient.execute(request);
+            String responseString = new BasicResponseHandler().handleResponse(response);
+            return new org.json.JSONObject(responseString);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public JSONArray getUsers() {
@@ -51,7 +70,6 @@ public class UserBean {
         if (arr != null) {
             this.users = arr;
         }
-//        users = restClient.get("/users").readEntity(List.class);
         return users;
     }
 
@@ -73,8 +91,6 @@ public class UserBean {
 
 
     public void deleteUser(String id) {
-//        restClient.delete("/users/" + id);
-
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpDelete httpDelete = new HttpDelete("https://localhost:8181/users/" + id);
             if (!mvcJwt.getJwt().equals("")) {
@@ -104,7 +120,6 @@ public class UserBean {
         }
     }
 
-
     public void createClient(User user) throws JsonProcessingException {
         String clientJSON = objectMapper.writeValueAsString(user);
 
@@ -119,6 +134,39 @@ public class UserBean {
             HttpUriRequest request = requestBuilder.build();
             HttpResponse response =  httpclient.execute(request);
             statusCode = response.getStatusLine().getStatusCode();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public HttpResponse getUserbyLogin(String login, String jwt) {
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            HttpUriRequest request = RequestBuilder.get()
+                    .setUri("https://localhost:8181/users/match/" + login)
+                    .setHeader("Authorization", "Bearer " + jwt)
+                    .build();
+            HttpResponse response = httpclient.execute(request);
+            return response;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void updateClient(User user) throws JsonProcessingException {
+        HttpResponse response = getUserbyLogin(mvcJwt.getUsername(), mvcJwt.getJwt());
+        user.setLogin(mvcJwt.getUsername());
+        String jws = response.getFirstHeader("ETag").getValue();
+
+
+        String clientJSON = objectMapper.writeValueAsString(user);
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpUriRequest request = RequestBuilder.put()
+                    .setUri("https://localhost:8181/users")
+                    .setHeader(HttpHeaders.CONTENT_TYPE, String.valueOf(MediaType.valueOf(MediaType.APPLICATION_JSON)))
+                    .setHeader("Authorization", "Bearer " + mvcJwt.getJwt())
+                    .setHeader("If-Match", jws)
+                    .setEntity(new StringEntity(clientJSON))
+                    .build();
+            httpClient.execute(request);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

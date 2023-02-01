@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.Date;
 
 public class JWT {
-    private String secrect = "xddddddddddddddddd";
+    private String secrect = "xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
     public String generateJWT(String login, String role) {
         return Jwts.builder()
                 .setSubject(login)

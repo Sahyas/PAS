@@ -20,13 +20,6 @@ import java.util.Objects;
 @ApplicationScoped
 public class UserRole implements Serializable {
 
-//    @Inject
-//    MvcJwt mvcJwt;
-//    private String secrect = "xddddddddddddddddd";
-//
-//    Claims claims = Jwts.parser().setSigningKey(secrect).parseClaimsJws(mvcJwt.getJwt()).getBody();
-//    String role = claims.get("roles", String.class);
-
     public boolean isAdmin() {
         return FacesContext.getCurrentInstance().getExternalContext().isUserInRole("Admin");
     }

@@ -1,28 +1,32 @@
 package com.pas.controller;
 
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.shaded.json.JSONObject;
+import com.pas.auth.JWS;
 import com.pas.model.NewPassword;
 import com.pas.model.User;
 import com.pas.service.impl.RentService;
 import com.pas.service.impl.UserService;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.SecurityContext;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jdk.jshell.spi.ExecutionControl;
 
 @Path("/users")
 @ApplicationScoped
@@ -36,6 +40,8 @@ public class UserController {
     @Inject
     private RentService rentService;
 
+    @Inject
+    JWS jwsGen;
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"Admin"})
@@ -57,11 +63,22 @@ public class UserController {
     }
 
     @GET
+    @RolesAllowed({"Admin", "Moderator", "Client"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    @Path("/match")
-    public User getUserByLogin(@QueryParam("login") String login) {
-        return userService.getUserByLogin(login);
+    @Path("/match/{login}")
+    public Response getUserByLogin(@PathParam("login") String login) throws  JOSEException{
+        if(userService.getUserByLogin(login) == null) {
+            return Response.status(404).build();
+        }
+        return Response.ok().entity(userService.getUserByLogin(login)).header("ETag", getJwsFromUser(login)).build();
+    }
+
+    public String getJwsFromUser(String login) throws NotFoundException, JOSEException {
+        User user = userService.getUserByLogin(login);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("login", user.getLogin().toString());
+        return this.jwsGen.generateJws(jsonObject.toString());
     }
 
     @GET
@@ -70,6 +87,15 @@ public class UserController {
     @Path("/matchAll")
     public List<User> getUsersMatchingLogin(@QueryParam("login") String login) {
         return userService.getUsersMatchingLogin(login);
+    }
+
+    @GET
+    @RolesAllowed({"Admin", "Moderator", "Client"})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/profile/{login}")
+    public User getProfile(@PathParam("login") String login) {
+        return userService.getUserByLogin(login);
     }
 
     @GET
@@ -101,10 +127,20 @@ public class UserController {
     }
 
     @PUT
+    @RolesAllowed({"Admin", "Moderator", "Client"})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public User updateClient(User user) {
-        return userService.updateClient(user);
+    public Response updateClient(User user, @Context HttpServletRequest request) {
+                try {
+            String jws = request.getHeader("If-Match");
+            if (jws == null) {
+                throw new BadRequestException();
+            }
+            userService.changeClient(user, jws);
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } catch (BadRequestException | IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST.getStatusCode(), e.getMessage()).build();
+        }
     }
 
     @PATCH
@@ -159,8 +195,6 @@ public class UserController {
     }
     @PATCH
     @RolesAllowed({"Admin", "Moderator", "Client"})
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/changePassword")
     public Response changePassword(NewPassword newPassword) {
     try {

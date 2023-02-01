@@ -23,7 +23,7 @@ public class MVCAuthenticationMechanism implements HttpAuthenticationMechanism {
     @Inject
     private MvcJwt mvcJwt;
 
-    private String secret = "xddddddddddddddddd";
+    private String secret = "xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
 
     @Override
     public AuthenticationStatus validateRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, HttpMessageContext httpMessageContext) {

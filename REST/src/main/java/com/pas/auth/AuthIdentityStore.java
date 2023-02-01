@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.SecurityContext;
 
 import java.util.*;
-//@ApplicationScoped
+
 public class AuthIdentityStore implements IdentityStore {
     @Inject
     private UserRepository userRepository;

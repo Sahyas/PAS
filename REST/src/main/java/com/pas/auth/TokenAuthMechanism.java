@@ -36,7 +36,6 @@ public class TokenAuthMechanism implements HttpAuthenticationMechanism {
             }
         }
 
-        // No or invalid Authorization header, return 401 Unauthorized
         roles.add("Guest");
         return context.notifyContainerAboutLogin("guest", roles);
     }

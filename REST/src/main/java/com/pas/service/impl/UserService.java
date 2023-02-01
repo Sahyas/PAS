@@ -1,5 +1,8 @@
 package com.pas.service.impl;
 
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.shaded.json.JSONObject;
+import com.pas.auth.JWS;
 import com.pas.model.Admin;
 import com.pas.model.Client;
 import com.pas.model.Moderator;
@@ -10,6 +13,7 @@ import com.pas.repository.UserRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -25,7 +29,8 @@ public class UserService {
     private RentRepository rentRepository;
     @Inject
     private SecurityContext securityContext;
-
+    private final Logger log = Logger.getLogger(getClass().getName());
+    private JWS jwsGen = new JWS();
     public User getClientById(UUID id) {
         return userRepository.getById(id);
     }
@@ -66,7 +71,27 @@ public class UserService {
     }
 
     public User updateClient(User user) {
-        return userRepository.update(user);
+        return userRepository.update(user);}
+    public void changeClient(User user, String jws) {
+        try {
+            if (this.jwsGen.verify(jws)) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("login", user.getLogin());
+                String newJwt = this.jwsGen.generateJws(jsonObject.toString());
+                if(newJwt.equals(jws)) {
+                    User oldUser = userRepository.getByLogin(user.getLogin());
+                    oldUser.setFirstName(user.getFirstName());
+                    oldUser.setLastName(user.getLastName());
+                    oldUser.setAge(user.getAge());
+                    oldUser.setPersonalId(user.getPersonalId());
+                    userRepository.update(oldUser);
+                }
+            }
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("Client does not exist");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public User getUserByLogin(String login) {
@@ -95,12 +120,8 @@ public class UserService {
                 throw new IllegalArgumentException("Old password is wrong.");
             }
             user.setPassword(newPassword);
-
         } catch (NoSuchElementException e) {
-
             throw new IllegalArgumentException("Client does not exist");
         }
     }
-
-
 }

@@ -9,7 +9,8 @@
     <ui:include src="navigation.xhtml"></ui:include>
     <a href="addBook.xhtml" class="btn btn-outline-primary" role="button">Add Book</a>
     <h:form>
-        <h:dataTable value="#{bookBean.books}" var="books">
+        <h:dataTable styleClass="table table-dark table-striped" value="#{bookBean.books}"
+                     var="books">
             <h:column>
                 <f:facet name="header">ID</f:facet>
                 <h:outputText value="#{books.id}"/>
@@ -36,6 +37,10 @@
             </h:column>
             <h:column>
                 <h:commandButton value="Delete" action="#{bookBean.deleteBook(books.id)}">
+                </h:commandButton>
+            </h:column>
+            <h:column>
+                <h:commandButton value="Edit" action="#{bookBean.editBookSetter(books.id)}">
                 </h:commandButton>
             </h:column>
         </h:dataTable>

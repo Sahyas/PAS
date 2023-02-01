@@ -13,7 +13,8 @@
     <ui:include src="navigation.xhtml"></ui:include>
     <a href="addRent.xhtml" class="btn btn-outline-primary" role="button">Add Rent</a>
     <h:form>
-        <h:dataTable value="#{rentBean.rents}" var="rents">
+        <h:dataTable styleClass="table table-dark table-striped" value="#{rentBean.rents}"
+                     var="rents">
             <h:column>
                 <f:facet name="header">ID</f:facet>
                 <h:outputText value="#{rents.id}"/>

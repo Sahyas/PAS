@@ -9,8 +9,10 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lombok.extern.slf4j.Slf4j;
 
 @RequestScoped
+@Slf4j
 public class RestClient {
 
     private Client client;
@@ -36,10 +38,15 @@ public class RestClient {
     }
 
     public Response put(String path, Object body) {
+        log.warn("dupa" + body.getClass().getSimpleName());
         return target.path(path).request().put(Entity.entity(body, MediaType.APPLICATION_JSON));
     }
 
     public Response delete(String path) {
         return target.path(path).request().delete();
+    }
+
+    public Response patch(String path) {
+        return target.path(path).request().put(Entity.json(""));
     }
 }

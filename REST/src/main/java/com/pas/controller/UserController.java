@@ -97,7 +97,7 @@ public class UserController {
         return userService.updateClient(user);
     }
 
-    @PATCH
+    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/activity/{userId}")

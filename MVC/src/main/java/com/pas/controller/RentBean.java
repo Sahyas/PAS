@@ -46,7 +46,6 @@ public class RentBean {
         queryParams.put("clientId", userId);
         queryParams.put("bookId", bookId);
         statusCode = restClient.post("/rents", "", queryParams, MediaType.valueOf(MediaType.TEXT_PLAIN)).getStatus();
-        log.error(restClient.post("/rents", "", queryParams, MediaType.valueOf(MediaType.TEXT_PLAIN)).toString());
     }
 
     public int getStatusCode() {

@@ -17,7 +17,7 @@
         <h:outputLabel for="genre">Genre:</h:outputLabel>
         <h:inputText id="genre" value="#{bookBean.book.genre}"></h:inputText>
         <h:commandButton value="Submit"
-                         action="#{bookBean.addBook(bookBean.book)}"></h:commandButton>
+                         action="#{bookBean.editBook(bookBean.book)}"></h:commandButton>
         <h:panelGroup rendered="#{bookBean.statusCode eq 201}">
             <h:outputText value="Book successfully added"></h:outputText>
         </h:panelGroup>

@@ -13,7 +13,10 @@
     <ui:include src="navigation.xhtml"></ui:include>
     <a href="addUser.xhtml" class="btn btn-outline-primary" role="button">Add User</a>
     <h:form>
-        <h:dataTable value="#{userBean.users}" var="users">
+        <h:inputText value="#{userBean.filter}"/>
+        <h:commandButton value="Filter Login" action="#{userBean.filterUsers()}"/>
+        <h:dataTable styleClass="table table-dark table-striped" value="#{userBean.users}"
+                     var="users">
             <h:column>
                 <f:facet name="header">ID</f:facet>
                 <h:outputText value="#{users.id}"/>
@@ -49,6 +52,16 @@
             <h:column>
                 <f:facet name="header">Active</f:facet>
                 <h:outputText value="#{users.active}"/>
+            </h:column>
+            <h:column>
+                <h:commandButton
+                        value="ChangeActivity"
+                        action="#{userBean.changeActivity(users.id)}">
+                </h:commandButton>
+            </h:column>
+            <h:column>
+                <h:commandButton value="Edit" action="#{userBean.editUserSetter(users.id)}">
+                </h:commandButton>
             </h:column>
             <h:column>
                 <h:commandButton value="Delete" action="#{userBean.deleteUser(users.id)}">

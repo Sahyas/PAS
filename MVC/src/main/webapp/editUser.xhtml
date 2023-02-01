@@ -21,9 +21,9 @@
         <h:outputLabel for="age">Age:</h:outputLabel>
         <h:inputText id="age" value="#{userBean.user.age}"></h:inputText>
         <h:commandButton value="Submit"
-                         action="#{userBean.addUser(userBean.user)}"></h:commandButton>
+                         action="#{userBean.editUser(userBean.user)}"></h:commandButton>
         <h:panelGroup rendered="#{userBean.statusCode eq 201}">
-            <h:outputText value="User successfully added"></h:outputText>
+            <h:outputText value="User successfully edited"></h:outputText>
         </h:panelGroup>
         <h:panelGroup rendered="#{userBean.statusCode eq 409}">
             <h:outputText value="This login is taken"></h:outputText>

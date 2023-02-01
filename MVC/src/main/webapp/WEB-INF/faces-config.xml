@@ -3,5 +3,33 @@
               xmlns="https://jakarta.ee/xml/ns/jakartaee"
               xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
                                   https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
+    <navigation-rule>
+        <from-view-id>/users.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>userEdit</from-outcome>
+            <to-view-id>/editUser.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/books.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>bookEdit</from-outcome>
+            <to-view-id>/editBook.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/editUser.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>usersPage</from-outcome>
+            <to-view-id>/users.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/editBook.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>booksPage</from-outcome>
+            <to-view-id>/books.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>

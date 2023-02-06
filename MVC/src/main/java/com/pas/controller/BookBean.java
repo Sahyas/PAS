@@ -10,10 +10,14 @@ import com.pas.model.User;
 import com.pas.service.RestClient;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.ws.rs.core.MediaType;
@@ -30,13 +34,14 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 @Named
-@RequestScoped
+@ViewScoped
 @Getter
 @Setter
 @Slf4j
-public class BookBean {
+public class BookBean implements Serializable {
     @Inject
     private MvcJwt mvcJwt;
     private Book book = new Book();
@@ -50,11 +55,15 @@ public class BookBean {
     }
 
     public JSONArray getBooks() {
+        return books;
+    }
+
+    @PostConstruct
+    public void updateBooks() {
         org.json.JSONArray arr = getAllBooks();
         if (arr != null) {
             this.books = arr;
         }
-        return books;
     }
 
     public org.json.JSONArray getAllBooks() {
@@ -73,10 +82,10 @@ public class BookBean {
         }
     }
 
-    public void deleteBook(String id) {
-
+    public String deleteBook(org.json.JSONObject book) {
+        String bookId = String.valueOf(book.get("id"));
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpDelete httpDelete = new HttpDelete("https://localhost:8181/books/" + id);
+            HttpDelete httpDelete = new HttpDelete("https://localhost:8181/books/" + bookId);
             if (!mvcJwt.getJwt().equals("")) {
                 httpDelete.setHeader("Authorization", "Bearer " + mvcJwt.getJwt());
             }
@@ -86,6 +95,7 @@ public class BookBean {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return "booksList";
     }
 
     public void addBook(Book book) throws JsonProcessingException {

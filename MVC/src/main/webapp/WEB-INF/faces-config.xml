@@ -11,5 +11,14 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/books.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>booksList</from-outcome>
+            <to-view-id>/books.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
 
 </faces-config>

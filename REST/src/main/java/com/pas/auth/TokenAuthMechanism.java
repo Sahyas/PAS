@@ -23,7 +23,6 @@ public class TokenAuthMechanism implements HttpAuthenticationMechanism {
         String authorizationHeader = request.getHeader("Authorization");
         Set<String> roles = new HashSet<>();
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String jws = authorizationHeader.substring("Bearer ".length());
             try {
                 String token = authorizationHeader.replace("Bearer ", "");
                 Claims claims = jwtGenerator.parseJWT(token).getBody();

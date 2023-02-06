@@ -10,33 +10,33 @@
 <!--    <a href="addBook.xhtml" class="btn btn-outline-primary" role="button">Add Book</a>-->
     <h:outputLink value="addBook.xhtml" rendered="#{userRole.isAdmin() || userRole.isModerator()}"><li>Add book</li></h:outputLink>
     <h:form>
-        <h:dataTable value="#{bookBean.books}" var="books">
+        <h:dataTable value="#{bookBean.books}" var="book">
             <h:column>
                 <f:facet name="header">ID</f:facet>
-                <h:outputText value='#{books.get("id")}'/>
+                <h:outputText value='#{book.get("id")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">title</f:facet>
-                <h:outputText value='#{books.get("title")}'/>
+                <h:outputText value='#{book.get("title")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">author</f:facet>
-                <h:outputText value='#{books.get("author")}'/>
+                <h:outputText value='#{book.get("author")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">serialNumber</f:facet>
-                <h:outputText value='#{books.get("serialNumber")}'/>
+                <h:outputText value='#{book.get("serialNumber")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">genre</f:facet>
-                <h:outputText value='#{books.get("genre")}'/>
+                <h:outputText value='#{book.get("genre")}'/>
             </h:column>
             <h:column>
                 <f:facet name="header">isRented</f:facet>
-                <h:outputText value='#{books.get("rented")}'/>
+                <h:outputText value='#{book.get("rented")}'/>
             </h:column>
             <h:column>
-                <h:commandButton rendered="#{userRole.isAdmin()}" value="Delete" action='#{bookBean.deleteBook(books.get("id"))}'>
+                <h:commandButton rendered="#{userRole.isAdmin()}" value="Delete" action='#{bookBean.deleteBook(book)}'>
                 </h:commandButton>
             </h:column>
         </h:dataTable>

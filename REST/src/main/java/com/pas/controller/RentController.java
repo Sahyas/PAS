@@ -10,6 +10,7 @@ import java.util.UUID;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -19,10 +20,11 @@ import jakarta.ws.rs.core.Response;
 public class RentController {
     @Inject
     private RentService rentService;
-
+    @Inject
+    private SecurityContext securityContext;
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"Admin", "Moderator", "Klient"})
+    @RolesAllowed({"Admin", "Moderator"})
     public Response createRent(newRent r) {
         Rent rent = rentService.rentBook(r.getClientId(), r.getBookId());
         if (rent != null) {
@@ -31,6 +33,20 @@ public class RentController {
             return Response.status(Response.Status.CONFLICT).entity("This book is already rented or user is not active").build();
         }
     }
+
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @RolesAllowed({"Admin", "Moderator"})
+//    @Path("/book/{bookId}")
+//    public Response createRentForMe(@PathParam("bookId") String bookId) {
+//        String username = securityContext.getCallerPrincipal().getName();
+//        Rent rent = rentService.rentBook(, bookId);
+//        if (rent != null) {
+//            return Response.status(Response.Status.CREATED).entity(rent).build();
+//        } else {
+//            return Response.status(Response.Status.CONFLICT).entity("This book is already rented or user is not active").build();
+//        }
+//    }
 
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
